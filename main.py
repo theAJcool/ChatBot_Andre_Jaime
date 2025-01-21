@@ -13,3 +13,6 @@ localidade = input("De onde és? ").strip().capitalize()
 print(f"O teu nome completo é {nome} {apelido}.")
 print(f"Tu tens {idade} anos de idade.")
 print(f"És de {localidade}.")
+
+
+#isto é um teste pra ver
