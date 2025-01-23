@@ -1,18 +1,76 @@
-print("Olá, mundo!")
-nome = input("Como te chamas? ").strip().capitalize()
-print(f"Olá, {nome}!")
+import os
+from datetime import datetime
 
-idade = input("Qual a tua idade? ").strip()
-while not idade.isdigit():
-    print("Por favor, introduz um número válido para a idade.")
-    idade = input("Qual a tua idade? ").strip()
+def obter_resposta(texto: str) -> str:
+    comando: str = texto.lower()
 
-apelido = input("Qual o teu apelido? ").strip().capitalize()
-localidade = input("De onde és? ").strip().capitalize()
+    if comando in ('olá', 'boa tarde', 'bom dia'):
+        return 'Olá tudo bem!'
+    if comando == 'como estás':
+        return 'Estou bem, obrigado!'
+    if comando == 'como te chamas?':
+        return 'O meu nome é: Bot :)'
+    if comando == 'tempo':
+        return 'Está um dia de sol!'
+    if comando in ('bye', 'adeus', 'tchau'):
+        return 'Gostei de falar contigo! Até breve...'
+    if 'horas' in comando:
+        return f'São: {datetime.now():%H:%M} horas'
+    if 'data' in comando:
+        return f'Hoje é dia: {datetime.now():%d-%m-%Y}'
 
-print(f"O teu nome completo é {nome} {apelido}.")
-print(f"Tu tens {idade} anos de idade.")
-print(f"És de {localidade}.")
+    return f'Desculpa, não entendi a questão! {texto}'
+
+"""
+    respostas = {
+        ('olá', 'boa tarde', 'bom dia'): 'Olá tudo bem!',
+        'como estás': 'Estou bem, obrigado!',
+        'capital de portugal': "Lisboa",
+        'como te chamas': 'O meu nome é: Bot :)',
+        'tempo': 'Está um dia de sol!',
+        ('bye', 'adeus', 'tchau'): 'Gostei de falar contigo! Até breve...',
+        'historia de portugal': 'Portugal tem uma rica história...',
+    }
+
+    for chave, resposta in respostas.items():
+        if isinstance(chave, tuple):
+            if comando in chave:
+                return resposta
+        elif chave in comando:
+            return resposta
+
+    if 'horas' in comando:
+        return f'São: {datetime.now():%H:%M} horas'
+
+    if 'data' in comando:
+        return f'Hoje é dia: {datetime.now():%d-%m-%Y}'
+
+    return f'Desculpa, não entendi a questão! {texto}'
+"""
 
 
-#isto é um teste pra ver
+def chat() -> None:
+    print('Bem-vindo ao ChatBot!')
+    print('Escreva "bye" para sair do chat')
+    name: str = input('Bot: Como te chamas? ')
+    print(f'Bot: Olá, {name}! \n Como te posso ajudar?')
+
+    while True:
+        user_input: str = input('Tu: ')
+        resposta: str = obter_resposta(user_input)
+        print(f'Bot: {resposta}')
+
+        if resposta == 'Gostei de falar contigo! Até breve...':
+            break
+
+    print('Chat acabou')
+    print()
+
+
+def main() -> None:
+    os.system('cls' if os.name == 'nt' else 'clear')
+    chat()
+
+
+if __name__ == '__main__':
+    main()
